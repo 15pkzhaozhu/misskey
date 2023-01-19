@@ -233,4 +233,36 @@ CREATE TABLE "messaging_message" ("id" character varying(32) NOT NULL, "createdA
 ;
 ALTER TABLE "notification" ADD "followRequestId" character varying(32)
 ;
+CREATE TABLE "__chart_day__hashtag" ("id" SERIAL NOT NULL, "date" integer NOT NULL, "group" character varying(128) NOT NULL, "___local_users" character varying array NOT NULL, "___remote_users" character varying array NOT NULL, CONSTRAINT "UQ_8f589cf056ff51f09d6096f6450" UNIQUE ("date", "group"), CONSTRAINT "PK_13d5a3b089344e5557f8e0980b4" PRIMARY KEY ("id"))
+;
+CREATE TABLE "channel" ("id" character varying(32) NOT NULL, "createdAt" TIMESTAMP WITH TIME ZONE NOT NULL, "lastNotedAt" TIMESTAMP WITH TIME ZONE, "userId" character varying(32) NOT NULL, "name" character varying(128) NOT NULL, "description" character varying(2048), "bannerId" character varying(32), "notesCount" integer NOT NULL DEFAULT 0, "usersCount" integer NOT NULL DEFAULT 0, CONSTRAINT "PK_590f33ee6ee7d76437acf362e39" PRIMARY KEY ("id"))
+;
+CREATE TABLE "__chart_day__notes" ("id" SERIAL NOT NULL, "date" integer NOT NULL, "___local_total" bigint NOT NULL, "___local_inc" bigint NOT NULL, "___local_dec" bigint NOT NULL, "___local_diffs_normal" bigint NOT NULL, "___local_diffs_reply" bigint NOT NULL, "___local_diffs_renote" bigint NOT NULL, "___remote_total" bigint NOT NULL, "___remote_inc" bigint NOT NULL, "___remote_dec" bigint NOT NULL, "___remote_diffs_normal" bigint NOT NULL, "___remote_diffs_reply" bigint NOT NULL, "___remote_diffs_renote" bigint NOT NULL, CONSTRAINT "UQ_1a527b423ad0858a1af5a056d43" UNIQUE ("date"), CONSTRAINT "PK_1fa4139e1f338272b758d05e090" PRIMARY KEY ("id"))
+;
+CREATE TABLE "registry_item" ("id" character varying(32) NOT NULL, "createdAt" TIMESTAMP WITH TIME ZONE NOT NULL, "updatedAt" TIMESTAMP WITH TIME ZONE NOT NULL, "userId" character varying(32) NOT NULL, "key" character varying(1024) NOT NULL, "scope" character varying(1024) array NOT NULL DEFAULT '{}'::varchar[], "domain" character varying(512), CONSTRAINT "PK_64b3f7e6008b4d89b826cd3af95" PRIMARY KEY ("id"))
+;
+COMMENT ON COLUMN "registry_item"."createdAt" IS 'The created date of the RegistryItem.'
+;
+COMMENT ON COLUMN "registry_item"."updatedAt" IS 'The updated date of the RegistryItem.'
+;
+COMMENT ON COLUMN "registry_item"."userId" IS 'The owner ID.'
+;
+COMMENT ON COLUMN "registry_item"."key" IS 'The key of the RegistryItem.'
+;
+ALTER TABLE "registry_item" ADD "value" jsonb NOT NULL DEFAULT '{}'
+;
+CREATE TABLE "blocking" ("id" character varying(32) NOT NULL, "createdAt" TIMESTAMP WITH TIME ZONE NOT NULL, "blockeeId" character varying(32) NOT NULL, "blockerId" character varying(32) NOT NULL, CONSTRAINT "PK_e5d9a541cc1965ee7e048ea09dd" PRIMARY KEY ("id"))
+;
+ALTER TABLE "notification" ADD "userGroupInvitationId" character varying(32)
+;
+ALTER TABLE "notification" ADD "customBody" character varying(2048)
+;
+ALTER TABLE "notification" ADD "customHeader" character varying(256)
+;
+ALTER TABLE "notification" ADD "customIcon" character varying(1024)
+;
+ALTER TABLE "notification" ADD "appAccessTokenId" character varying(32)
+;
+ALTER TABLE "notification" ALTER COLUMN "notifierId" DROP NOT NULL
+;
 
