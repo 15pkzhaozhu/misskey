@@ -265,4 +265,6 @@ ALTER TABLE "notification" ADD "appAccessTokenId" character varying(32)
 ;
 ALTER TABLE "notification" ALTER COLUMN "notifierId" DROP NOT NULL
 ;
+CREATE TABLE "muted_note" ("id" character varying(32) NOT NULL, "noteId" character varying(32) NOT NULL, "userId" character varying(32) NOT NULL, CONSTRAINT "PK_897e2eff1c0b9b64e55ca1418a4" PRIMARY KEY ("id"))
+;
 
