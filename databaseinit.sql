@@ -267,4 +267,8 @@ ALTER TABLE "notification" ALTER COLUMN "notifierId" DROP NOT NULL
 ;
 CREATE TABLE "muted_note" ("id" character varying(32) NOT NULL, "noteId" character varying(32) NOT NULL, "userId" character varying(32) NOT NULL, CONSTRAINT "PK_897e2eff1c0b9b64e55ca1418a4" PRIMARY KEY ("id"))
 ;
+CREATE TYPE "__chart__federation_span_enum" AS ENUM('hour', 'day')
+;
+CREATE TABLE "__chart__federation" ("id" SERIAL NOT NULL, "date" integer NOT NULL, "group" character varying(128), "span" "__chart__federation_span_enum" NOT NULL, "unique" jsonb NOT NULL DEFAULT '{}', "___instance_total" bigint NOT NULL, "___instance_inc" bigint NOT NULL, "___instance_dec" bigint NOT NULL, CONSTRAINT "PK_b39dcd31a0fe1a7757e348e85fd" PRIMARY KEY ("id"))
+;
 
